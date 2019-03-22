@@ -1,7 +1,10 @@
 FROM php:7.3-cli
 
+LABEL maintainer="christian.pedersen@zentura.dk"
+
 ENV ACCEPT_EULA=Y
 
+# Set INI fil
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 
 # Microsoft SQL Server Prerequisites
@@ -20,6 +23,7 @@ RUN apt-get update \
         unixodbc-dev \
         msodbcsql17
 
+# Enable SQL SRV Plugin
 RUN docker-php-ext-install mbstring pdo pdo_mysql \
     && pecl install sqlsrv pdo_sqlsrv \
     && docker-php-ext-enable sqlsrv pdo_sqlsrv
